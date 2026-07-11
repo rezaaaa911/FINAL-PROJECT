@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Tracking Saver — Financial Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .global-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+        .stat-sub-detail {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 11px;
+            color: #86868b;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: left;
+        }
+        .stat-sub-item {
+            display: flex;
+            justify-content: space-between;
+            color: #64d2ff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container" id="main-content-bg">
+        
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="brand-wrapper">
+                    <div class="logo-section">
+                        <div class="logo-natgeo-box"></div>
+                        <div class="logo-text-stacked">
+                            <span class="txt-smart">SMART</span>
+                            <span class="txt-tracking">TRACKING</span>
+                            <span class="txt-saver">SAVER</span>
+                        </div>
+                    </div>
+                    <p class="brand-tagline">SIMPLIFYING YOUR SAVINGS JOURNEY</p>
+                </div>
+
+                <nav class="nav-menu">
+                    <a href="#" class="nav-item active" id="menu-dashboard">
+                        <span class="nav-icon">⚃</span> Dashboard
+                    </a>
+                    <a href="#" class="nav-item" id="menu-tambah">
+                        <span class="nav-icon">⊕</span> Create Goal
+                    </a>
+                    <a href="#" class="nav-item" id="menu-riwayat">
+                        <span class="nav-icon">📄</span> History
+                    </a>
+                    <a href="#" class="nav-item" id="menu-trophy">
+                        <span class="nav-icon">🏆</span> Achieved Goals
+                    </a>
+                    <a href="#" class="nav-item" id="menu-settings">
+                        <span class="nav-icon">⚙️</span> Settings
+                    </a>
+                </nav>
+            </div>
+
+            <div class="sidebar-art-container">
+                <div class="bonsai-canvas-wrapper">
+                    <canvas id="bonsaiCanvas" width="120" height="100"></canvas>
+                </div>
+            </div>
+
+            <div class="sidebar-widget">
+                <p class="widget-title">TARGET ACHIEVEMENT</p>
+                <div class="achieve-progress-wrapper">
+                    <div class="achieve-bar"><div id="achieve-fill" class="achieve-fill" style="width: 0%;"></div></div>
+                    <p id="achieve-text" class="achieve-text">0% Goals Completed</p>
+                </div>
+            </div>
+            
+            <div class="sidebar-bottom">
+                <p class="footer-note">Created By:<br><strong>M Reza Arridho</strong><br>&copy; 2026</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <header class="main-header">
+                <h1>Smart Tracking Saver</h1>
+                <p>Pantau perkembangan target tabunganmu secara dinamis dan real-time.</p>
+            </header>
+
+            <div id="page-dashboard" class="page-section active-page">
+                
+                <div class="global-stats-grid">
+                    <div class="stat-card">
+                        <h4>Total Uang Keseluruhan</h4>
+                        <p id="sub-total-keseluruhan">Rp 0</p>
+                        <span class="stat-badge gold">💰 Cash + E-Money</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <h4>Total Uang Cash</h4>
+                        <p id="sub-total-cash">Rp 0</p>
+                        <span class="stat-badge green">↑ Fisik / Dompet</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <h4>Total E-Money</h4>
+                        <p id="sub-total-emoney">Rp 0</p>
+                        <span class="stat-badge blue">↑ Saldo Digital</span>
+                        
+                        <!-- WADAH BARU: List vendor akan masuk ke sini otomatis oleh JS -->
+                        <div id="dynamic-emoney-list" class="stat-sub-detail">
+                            <span style="color: #636366; font-style: italic;">Belum ada saldo</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <h4>Total Target Tabungan</h4>
+                        <p id="global-target">Rp 0</p>
+                        <span class="stat-badge blue" id="global-sisa-target">↑ Rp 0 Sisa</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <h4>Persentase Total Tercapai</h4>
+                        <p id="global-persentase">0%</p>
+                        <span class="stat-badge green" id="global-sisa-persen">↓ 100% Sisa Target</span>
+                    </div>
+                </div>
+
+                <div class="portfolio-section" style="margin-top: 32px;">
+                    <h3 class="section-title">Daftar Tabungan Aktif</h3>
+                    <div id="portfolio-container" class="portfolio-container">
+                        <p class="empty-state">Memuat data portofolio... ⏳</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page-tambah" class="page-section hidden-page">
+                <div class="card form-page-card">
+                    <h3>Buat Tabungan Baru</h3>
+                    <form id="portfolio-form" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="nama">Nama Tabungan / Target</label>
+                            <input type="text" id="nama" placeholder="Contoh: Mobil, Sepatu, Laptop" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="target_sasaran_mask">Target Tabungan (Rp)</label>
+                            <input type="text" id="target_sasaran_mask" placeholder="Contoh: 2,000,000" required>
+                            <input type="hidden" id="target_sasaran">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Rincian Alokasi Nabung Kustom</label>
+                            <div style="display: flex; gap: 12px;">
+                                <div style="flex: 1;">
+                                    <input type="text" id="rincian_nominal_mask" placeholder="Nominal (Contoh: 7,000)" required>
+                                    <input type="hidden" id="rincian_nominal" value="20000">
+                                </div>
+                                <div style="width: 150px; position: relative;">
+                                    <div class="custom-dropdown">
+                                        <div class="dropdown-trigger" id="periode-trigger">
+                                            <span id="periode-label">/ Hari</span>
+                                            <span class="dropdown-arrow">∟</span>
+                                        </div>
+                                        <div class="dropdown-menu" id="periode-menu">
+                                            <div class="dropdown-item active" data-value="hari">/ Hari</div>
+                                            <div class="dropdown-item" data-value="minggu">/ Minggu</div>
+                                            <div class="dropdown-item" data-value="bulan">/ Bulan</div>
+                                            <div class="dropdown-item" data-value="tahun">/ Tahun</div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="rincian_periode" value="hari">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="file_foto">Foto Sampul Tabungan</label>
+                            <input type="file" id="file_foto" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn-submit">Simpan & Buat Tabungan</button>
+                    </form> 
+                </div>
+            </div>
+
+            <div id="page-riwayat" class="page-section hidden-page">
+                <div style="margin-bottom: 24px;">
+                    <h3 class="section-title" style="margin-bottom: 4px;">Riwayat Aktivitas Transaksi</h3>
+                    <p style="font-size: 13px; color: #86868b;">Klik pada kartu tabungan di bawah untuk melihat rincian riwayat transaksi masuk/keluar.</p>
+                </div>
+                <div id="accordion-riwayat-container" style="display: flex; flex-direction: column; gap: 16px;"></div>
+            </div>
+
+            <div id="page-trophy" class="page-section hidden-page">
+                <div style="margin-bottom: 24px;">
+                    <h3 class="section-title" style="margin-bottom: 4px;">🏆 Achieved Goals (Tabungan Tercapai)</h3>
+                    <p style="font-size: 13px; color: #86868b;">Daftar seluruh target tabungan yang sudah sukses mencapai target 100%.</p>
+                </div>
+                <div id="trophy-container" class="portfolio-container"></div>
+            </div>
+
+            <div id="page-settings" class="page-section hidden-page">
+                <div class="card form-page-card">
+                    <h3>⚙️ Pengaturan Kustomisasi Web</h3>
+                    <p style="font-size: 13px; color: #86868b; margin-bottom: 24px;">Sesuaikan tampilan preferensi visual antarmuka sistem kamu.</p>
+                    
+                    <div class="form-group" style="margin-bottom: 24px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Mode Tampilan Tema</label>
+                        <button id="btn-toggle-tema" class="btn-action primary" style="background-color: #5856d6; padding: 12px 20px; width: 100%; border-radius: 10px;">
+                            🌙 Ganti ke Mode Terang (Light Mode)
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Pilih Gambar Latar Belakang (Background)</label>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <button class="btn-action secondary btn-bg-select" data-bg="linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), url('bg-dollar.jpg')" style="text-align: left; padding: 12px;">💸 Default Dollar Theme</button>
+                            <button class="btn-action secondary btn-bg-select" id="btn-bg-minimalist" data-bg="linear-gradient(135deg, #1c1c1e 0%, #000000 100%)" style="text-align: left; padding: 12px;">⚫ Dark Minimalist (Polos)</button>
+                            <button class="btn-action secondary btn-bg-select" data-bg="linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920')" style="text-align: left; padding: 12px;">🎨 Abstract Cyberpunk Wave</button>
+                            <button class="btn-action secondary btn-bg-select" data-bg="linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1920')" style="text-align: left; padding: 12px;">🌌 Futuristic Neon Matrix</button>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 32px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px; text-align: center;">
+                        <p style="font-size: 11px; color: #636366; margin: 0;">SAVER Build v2.5.0 (Stable) &bull; M Reza Arridho</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- POPUP MODAL 1: TRANSAKSI MUTASI -->
+    <div id="modal-isi-saldo" class="modal">
+        <div class="modal-content card" style="position: relative; width: 440px;">
+            <button type="button" id="btn-cancel-isi" class="btn-close-modal-x">&times;</button>
+            <h3 id="modal-title">Isi Saldo Tabungan</h3>
+            <div style="margin-top: 16px;">
+                
+                <div class="form-group">
+                    <label style="font-weight: 600; margin-bottom: 8px; display: block;">Metode Pembayaran</label>
+                    <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+                        <button type="button" id="btn-method-cash" class="btn-action primary" style="flex: 1; padding: 10px; border-radius: 8px;">💵 Uang Cash</button>
+                        <button type="button" id="btn-method-emoney" class="btn-action secondary" style="flex: 1; padding: 10px; border-radius: 8px;">📱 E-Money</button>
+                    </div>
+                    <input type="hidden" id="metode-pembayaran-pilihan" value="cash">
+                </div>
+
+                <!-- DAFTAR VENDOR LENGKAP -->
+                <div class="form-group" id="group-vendor-emoney" style="display: none; margin-bottom: 16px;">
+                    <label for="vendor-emoney-select" style="font-weight: 500;">Pilih Dompet Digital / Vendor</label>
+                    <select id="vendor-emoney-select" style="width: 100%; padding: 12px; background: #1c1c1e; color: white; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-top: 6px;">
+                        <option value="DANA">DANA</option>
+                        <option value="GoPay">GoPay</option>
+                        <option value="OVO">OVO</option>
+                        <option value="ShopeePay">ShopeePay</option>
+                        <option value="LinkAja">LinkAja</option>
+                        <option value="SeaBank">SeaBank</option>
+                        <option value="Bank Jago">Bank Jago</option>
+                        <option value="PayPal">PayPal</option>
+                        <option value="Lainnya">Lainnya...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="nominal-isi-mask">Nominal Transaksi (Rp)</label>
+                    <input type="text" id="nominal-isi-mask" placeholder="Contoh: 100,000" required>
+                    <input type="hidden" id="nominal-isi">
+                </div>
+                <div class="form-group">
+                    <label for="catatan-isi">Catatan / Kategori Transaksi</label>
+                    <input type="text" id="catatan-isi" placeholder="Contoh: Uang Saku dari Mama, Gaji, Tabungan">
+                </div>
+                <button id="btn-confirm-isi" class="btn-submit" style="margin-top: 10px;">Setor Ke Tabungan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP MODAL 2: EDIT DETAIL TABUNGAN -->
+    <div id="modal-edit-portfolio" class="modal">
+        <div class="modal-content card" style="width: 480px; position: relative;">
+            <button type="button" id="btn-cancel-edit" class="btn-close-modal-x">&times;</button>
+            <h3>Edit Detail Tabungan</h3>
+            <form id="edit-portfolio-form" enctype="multipart/form-data" style="margin-top: 16px;">
+                <div class="form-group">
+                    <label for="edit-nama">Nama Tabungan / Target</label>
+                    <input type="text" id="edit-nama" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-target-mask">Target Sasaran (Rp)</label>
+                    <input type="text" id="edit-target-mask" placeholder="Contoh: 2,000,000" required>
+                    <input type="hidden" id="edit-target">
+                </div>
+                
+                <div class="form-group">
+                    <label>Rincian Alokasi Nominal & Periode Baru</label>
+                    <div style="display: flex; gap: 12px;">
+                        <div style="flex: 1;">
+                            <input type="text" id="edit-rincian-mask" placeholder="Contoh: 20,000" required>
+                            <input type="hidden" id="edit-rincian">
+                        </div>
+                        <div style="width: 150px; position: relative;">
+                            <div class="custom-dropdown">
+                                <div class="dropdown-trigger" id="edit-periode-trigger">
+                                    <span id="edit-periode-label">/ Hari</span>
+                                    <span class="dropdown-arrow">∟</span>
+                                </div>
+                                <div class="dropdown-menu" id="edit-periode-menu">
+                                    <div class="dropdown-item active" data-value="hari">/ Hari</div>
+                                    <div class="dropdown-item" data-value="minggu">/ Minggu</div>
+                                    <div class="dropdown-item" data-value="bulan">/ Bulan</div>
+                                    <div class="dropdown-item" data-value="tahun">/ Tahun</div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="edit-periode" value="hari">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-foto">Ubah Foto Sampul (Kosongkan jika tidak diganti)</label>
+                    <input type="file" id="edit-foto" accept="image/*">
+                </div>
+                <div style="margin-top: 24px;">
+                    <button type="submit" class="btn-submit" style="margin-top: 0;">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- POPUP MODAL 3: CUSTOM CONFIRMATION DIALOG GLOBAL -->
+    <div id="modal-konfirmasi-global" class="modal">
+        <div class="modal-content card modal-alert-box">
+            <div class="alert-icon-wrapper">⚠️</div>
+            <h3 id="konfirmasi-title" style="font-size: 18px; font-weight: 700; margin-bottom: 8px; text-align: center;">Konfirmasi Tindakan</h3>
+            <p id="konfirmasi-pesan" style="font-size: 14px; color: #86868b; text-align: center; line-height: 1.5; margin-bottom: 24px;">Apakah Anda yakin ingin melakukan tindakan ini?</p>
+            <div class="modal-buttons" style="display: flex; gap: 12px; margin-top: 0; width: 100%;">
+                <button id="btn-konfirmasi-batal" class="btn-secondary" style="flex: 1; padding: 12px;">Batal</button>
+                <button id="btn-konfirmasi-oke" class="btn-submit btn-action warning" style="flex: 1; margin-top: 0; padding: 12px; border-radius: 10px;">Hapus Data</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

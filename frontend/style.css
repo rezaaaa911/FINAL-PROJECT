@@ -1,0 +1,839 @@
+/* --- RESET & FONT DASAR (Ala Apple iOS) --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: #000000;
+    color: #f5f5f7;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* --- CONTAINER UTAMA --- */
+.app-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), url('bg-dollar.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* --- SIDEBAR STYLE --- */
+.sidebar {
+    width: 260px;
+    background-color: #000000;
+    border-right: 1px solid #1d1d1f;
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 10;
+}
+
+.brand-wrapper {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.logo-natgeo-box {
+    width: 34px;
+    height: 48px;
+    border: 6px solid #ffcc00;
+    background-color: transparent;
+    flex-shrink: 0;
+}
+
+.logo-text-stacked {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.1;
+}
+
+.logo-text-stacked span {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+}
+
+.logo-text-stacked .txt-smart { font-size: 15px; }
+.logo-text-stacked .txt-tracking { font-size: 14px; }
+.logo-text-stacked .txt-saver { font-size: 14px; color: #ffcc00; }
+
+.brand-tagline {
+    font-size: 10px;
+    color: #86868b;
+    line-height: 1.3;
+    font-weight: 400;
+    padding-left: 2px;
+}
+
+.nav-menu {
+    margin-top: 30px;
+    flex-grow: 1;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #86868b;
+    text-decoration: none;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                background-color 0.3s ease, 
+                color 0.3s ease;
+}
+
+.nav-item:hover {
+    background-color: #1d1d1f;
+    color: #ffffff;
+    transform: translateX(4px);
+}
+
+.nav-item.active {
+    background-color: #1d1d1f;
+    color: #ffffff;
+}
+
+.nav-item:active {
+    transform: scale(0.96) translateX(4px);
+}
+
+.footer-note {
+    font-size: 11px;
+    color: #86868b;
+    line-height: 1.6;
+}
+
+.footer-note strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* --- KONTEN UTAMA --- */
+.main-content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.main-header {
+    margin-bottom: 32px;
+}
+
+.main-header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -1px;
+}
+
+.main-header p {
+    font-size: 14px;
+    color: #86868b;
+    margin-top: 6px;
+}
+
+/* --- MANAGEMENT HALAMAN VIRTUAL SPA --- */
+.page-section {
+    opacity: 0;
+    display: none !important;
+}
+
+.hidden-page {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+.page-section.active-page {
+    display: block !important;
+    animation: meluncurHalamanMulus 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* --- GLOBAL STATS GRID --- */
+.global-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background-color: rgba(24, 24, 26, 0.85) !important;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    cursor: default;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.4s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+}
+
+.stat-card h4 {
+    font-size: 11px;
+    color: #a1a1aa;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.stat-card p {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.stat-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.stat-badge.green { background-color: rgba(48, 209, 88, 0.15); color: #30d158; }
+.stat-badge.blue { background-color: rgba(100, 210, 255, 0.15); color: #64d2ff; }
+.stat-badge.gold { background-color: rgba(255, 204, 0, 0.15); color: #ffcc00; }
+
+/* --- CARD FORM PAGE --- */
+.form-page-card {
+    max-width: 520px;
+    margin: 40px auto 0 auto;
+    background-color: rgba(24, 24, 26, 0.85) !important;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 30px;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease !important;
+}
+
+.form-page-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: rgba(255, 255, 255, 0.22) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6) !important;
+}
+
+.form-page-card h3 {
+    font-size: 14px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+/* --- CARD GLASS DASAR --- */
+.card {
+    background-color: rgba(24, 24, 26, 0.85);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+/* --- KARTU PORTOFOLIO UTAMA --- */
+.portfolio-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.section-title {
+    font-size: 14px;
+    color: #86868b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.portfolio-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.portfolio-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(24, 24, 26, 0.85) !important;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 24px 32px;
+    gap: 20px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: rgba(255, 255, 255, 0.22) !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+}
+
+.portfolio-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 35%;
+}
+
+.portfolio-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 16px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #1c1c1e;
+}
+
+.portfolio-info h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+}
+
+.portfolio-meta {
+    font-size: 11px;
+    color: #a1a1aa;
+    margin-bottom: 8px;
+}
+
+.portfolio-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #e5e5ea;
+}
+
+.detail-item .icon { color: #86868b; }
+
+/* KELAS WARNA UTILITY TRACKER PORTOFOLIO */
+.highlight-green { color: #30d158 !important; font-weight: 600; }
+.highlight-blue { color: #64d2ff !important; font-weight: 500; }
+.highlight-red { color: #ff453a !important; font-weight: 600; }
+
+.txt-adaptive-white { color: #ffffff; }
+
+.portfolio-center {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-grow: 1;
+    padding: 0 20px;
+}
+
+.data-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+}
+
+.data-group h4 {
+    font-size: 11px;
+    color: #a1a1aa;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.data-group p {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.data-group.terkumpul p { color: #30d158; }
+
+.portfolio-right {
+    display: flex;
+    align-items: center;
+    gap: 20px !important;
+}
+
+.progress-container {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+}
+
+.progress-ring { transform: rotate(-90deg); }
+.progress-ring__circle {
+    stroke-dasharray: 157;
+    stroke-dashoffset: 157;
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+.progress-text {
+    position: absolute;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    cursor: default;
+}
+
+.btn-action {
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-action.primary { background-color: #0071e3; border: none; }
+.btn-action.primary:hover { background-color: #147ce5; }
+.btn-action.warning { background-color: #ff453a; border: none; }
+.btn-action.warning:hover { background-color: #ff3b30; }
+.btn-action.danger:hover { background-color: rgba(255, 69, 58, 0.2); color: #ff453a; border-color: #ff453a; }
+
+/* --- ITEMS BARIS JURNAL RIWAYAT MUTASI --- */
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(36, 36, 39, 0.35) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.history-info h5 { font-size: 15px; font-weight: 600; color: #ffffff; }
+.history-info span { font-size: 12px; color: #86868b; }
+.history-amount { display: flex; align-items: center; gap: 16px; }
+
+.history-badge {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.badge-masuk { background-color: rgba(48, 209, 88, 0.15); color: #30d158; }
+.badge-keluar { background-color: rgba(255, 69, 58, 0.15); color: #ff453a; }
+
+/* --- INPUT & BUTTON STYLE --- */
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 12px; color: #a1a1aa; margin-bottom: 6px; font-weight: 500; }
+.form-group input, .form-group select {
+    width: 100%; background-color: #2c2c2e; border: 1px solid #424245; border-radius: 10px;
+    padding: 12px 16px; color: #ffffff; font-size: 14px; outline: none; transition: border-color 0.2s ease;
+}
+.form-group input[type="file"] { padding: 10px; font-size: 12px; color: #86868b; cursor: pointer; }
+.form-group input:focus, .form-group select:focus { border-color: #0071e3; }
+
+.btn-submit {
+    width: 100%; background-color: #0071e3; color: #ffffff; border: none; border-radius: 12px;
+    padding: 14px; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1); margin-top: 10px;
+}
+.btn-submit:hover { background-color: #147ce5; box-shadow: 0 0 15px rgba(0, 113, 227, 0.4); }
+.btn-submit:active { transform: scale(0.97); }
+
+/* --- ACCORDION DETAILS FIX ENGINE (SUPER CLEAN CLOSE) --- */
+#accordion-riwayat-container .portfolio-card {
+    padding: 26px 36px !important; border-radius: 20px; background-color: rgba(24, 24, 26, 0.85) !important; z-index: 2;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s ease, 
+                background-color 0.4s ease, border-radius 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+}
+#accordion-riwayat-container .portfolio-card.aktif-buka {
+    border-bottom-left-radius: 0px !important; border-bottom-right-radius: 0px !important;
+    background-color: rgba(36, 36, 39, 0.9) !important; border-color: rgba(255, 255, 255, 0.15);
+}
+
+.panel-detail-mutasi {
+    display: block !important;
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    background-color: rgba(18, 18, 20, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: none;
+    padding: 0px 24px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-bottom: 12px;
+    z-index: 1;
+    transform: translateZ(0);
+    transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                opacity 0.35s ease-in-out, 
+                visibility 0.4s ease;
+}
+
+.panel-detail-mutasi.buka { 
+    opacity: 1; 
+    visibility: visible;
+}
+
+.panel-inner {
+    padding-top: 24px;
+    padding-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* --- DROPDOWN STYLE --- */
+.custom-dropdown { position: relative !important; width: 100% !important; }
+.dropdown-trigger {
+    width: 100% !important; background-color: #2c2c2e !important; border: 1px solid #424245 !important; border-radius: 10px !important;
+    padding: 12px 16px !important; color: #ffffff !important; font-size: 14px !important; cursor: pointer !important;
+    display: flex !important; justify-content: space-between !important; align-items: center !important; transition: all 0.3s ease !important;
+}
+.dropdown-arrow { font-size: 10px !important; color: #86868b !important; transform: rotate(45deg) !important; transition: transform 0.4s ease !important; }
+.dropdown-trigger.open .dropdown-arrow { transform: rotate(225deg) !important; }
+.dropdown-menu {
+    position: absolute !important; top: calc(100% + 6px) !important; left: 0 !important; width: 100% !important; 
+    background-color: rgba(24, 24, 26, 0.95) !important; backdrop-filter: blur(25px) !important; -webkit-backdrop-filter: blur(25px) !important; 
+    border: 1px solid rgba(255, 255, 255, 0.15) !important; border-radius: 14px !important; padding: 6px !important; 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important; z-index: 999 !important; opacity: 0 !important; 
+    transform: translateY(-10px) scale(0.96) !important; pointer-events: none !important;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1), opacity 0.3s ease !important;
+}
+.dropdown-menu.show { opacity: 1 !important; transform: translateY(0) scale(1) !important; pointer-events: auto !important; }
+.dropdown-item { padding: 10px 14px !important; font-size: 14px !important; color: #f5f5f7 !important; border-radius: 8px !important; cursor: pointer !important; transition: all 0.2s ease !important; }
+.dropdown-item:hover { background-color: rgba(255, 255, 255, 0.08) !important; }
+.dropdown-item.active { background-color: #0071e3 !important; color: #ffffff !important; font-weight: 500 !important; }
+
+/* --- RUANG AMAN JUDUL MODAL --- */
+.modal-content h3 {
+    padding-right: 48px !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
+/* --- CLOSE BUTTON KANAN ATAS --- */
+.btn-close-modal-x {
+    position: absolute !important; top: 18px !important; right: 18px !important; width: 28px !important; height: 28px !important;
+    background-color: rgba(255, 69, 58, 0.15) !important; border: 1px solid rgba(255, 69, 58, 0.3) !important; color: #ff453a !important;
+    border-radius: 50% !important; font-size: 18px !important; line-height: 24px !important; text-align: center !important;
+    cursor: pointer !important; display: flex !important; justify-content: center !important; align-items: center !important;
+    font-weight: 600 !important; padding: 0 !important; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important; z-index: 100 !important;
+}
+.btn-close-modal-x:hover { background-color: #ff453a !important; color: #ffffff !important; transform: scale(1.1) rotate(90deg); }
+.btn-close-modal-x:active { transform: scale(0.92); }
+
+/* --- BOX DIALOG POPUP KONFIRMASI KUSTOM ALA APPLE --- */
+.modal-alert-box { max-width: 400px !important; padding: 32px 24px !important; border-radius: 24px !important; display: flex !important; flex-direction: column !important; align-items: center !important; }
+.alert-icon-wrapper { width: 56px; height: 56px; background-color: rgba(255, 149, 0, 0.15); border: 1px solid rgba(255, 149, 0, 0.3); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; margin-bottom: 16px; color: #ff9500; }
+
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff;
+    border-radius: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-secondary:hover { background-color: rgba(255, 255, 255, 0.12) !important; }
+
+/* --- TRANSISI FADE-UP HALAMAN --- */
+@keyframes meluncurHalamanMulus {
+    from { opacity: 0; transform: translateY(15px); filter: blur(4px); }
+    to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* --- MINI STATUS BAR ACHIEVEMENTS --- */
+.sidebar-widget {
+    margin-top: auto;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.widget-title {
+    font-size: 9px;
+    color: #ffcc00;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.achieve-progress-wrapper { display: flex; flex-direction: column; gap: 8px; }
+
+.achieve-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.achieve-fill {
+    height: 100%;
+    background: #30d158;
+    border-radius: 3px;
+    transition: width 0.8s ease;
+}
+
+.achieve-text {
+    font-size: 10px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* --- ART DESIGN: SIDEBAR RETRO PIXEL BONSAI ALIVE ULTRA --- */
+.sidebar-art-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;      
+    margin-bottom: 4px;    
+    padding: 4px 12px;
+    text-align: center;
+}
+
+.bonsai-canvas-wrapper {
+    position: relative;
+    width: 140px;  
+    height: 120px; 
+}
+
+#bonsaiCanvas {
+    width: 100%;
+    height: 100%;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+.art-caption {
+    font-size: 9.5px;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: 4px;
+    letter-spacing: 0.6px;
+    font-weight: 400;
+    user-select: none;
+}
+
+body.light-theme .art-caption {
+    color: rgba(0, 0, 0, 0.55) !important;
+}
+
+/* ===================================================================== */
+/* --- KUSTOMISASI TEMA TERANG PREMIUM SOLID CONTRAST (LIGHT MODE) --- */
+/* ===================================================================== */
+body.light-theme {
+    background-color: #f2f2f7 !important;
+    color: #1c1c1e !important;
+}
+
+body.light-theme .app-container { background-color: #f2f2f7 !important; }
+body.light-theme .sidebar { background-color: #ffffff !important; border-right: 1px solid #d1d1d6 !important; }
+
+body.light-theme .sidebar-widget {
+    background: rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid #d1d1d6 !important;
+}
+body.light-theme .widget-title { color: #86868b !important; }
+body.light-theme .achieve-text { color: #1c1c1e !important; }
+body.light-theme .achieve-bar { background: rgba(0, 0, 0, 0.1) !important; }
+
+body.light-theme .logo-section h2, body.light-theme .main-header h1, body.light-theme .section-title { color: #1c1c1e !important; }
+body.light-theme .nav-item { color: #48484a !important; }
+body.light-theme .nav-item:hover, body.light-theme .nav-item.active { background-color: #e5e5ea !important; color: #000000 !important; }
+body.light-theme .sidebar-bottom .footer-note strong { color: #000000 !important; }
+body.light-theme .footer-note { color: #48484a !important; }
+
+body.light-theme .logo-text-stacked span { color: #1c1c1e !important; }
+body.light-theme .logo-text-stacked .txt-saver { color: #ff9500 !important; }
+body.light-theme .brand-tagline { color: #636366 !important; }
+
+body.light-theme .card, body.light-theme .stat-card, body.light-theme .portfolio-card, body.light-theme .form-page-card, body.light-theme #accordion-riwayat-container .portfolio-card {
+    background-color: rgba(255, 255, 255, 0.94) !important; border-color: rgba(0, 0, 0, 0.12) !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-theme .btn-bg-select { color: #1c1c1e !important; background-color: rgba(0, 0, 0, 0.05) !important; border: 1px solid rgba(0, 0, 0, 0.08) !important; }
+body.light-theme .btn-bg-select:hover { background-color: rgba(0, 0, 0, 0.1) !important; }
+
+body.light-theme .form-page-card h3, body.light-theme .stat-card p, body.light-theme .portfolio-info h2, body.light-theme .stat-card h4, body.light-theme .portfolio-meta, body.light-theme .detail-item, body.light-theme .data-group h4, body.light-theme .data-group p, body.light-theme .progress-text, body.light-theme .empty-state, body.light-theme .txt-adaptive-white {
+    color: #1c1c1e !important;
+}
+
+body.light-theme .dropdown-menu { background-color: rgba(255, 255, 255, 0.96) !important; border-color: rgba(0, 0, 0, 0.15) !important; }
+body.light-theme .dropdown-item { color: #1c1c1e !important; }
+body.light-theme .dropdown-item:hover { background-color: rgba(0, 0, 0, 0.05) !important; }
+body.light-theme .dropdown-item.active { background-color: #0071e3 !important; color: #ffffff !important; }
+body.light-theme .txt-terkumpul-value { color: #30d158 !important; font-weight: 700 !important; }
+
+body.light-theme .panel-detail-mutasi { background-color: rgba(0, 0, 0, 0.03) !important; border-color: rgba(0, 0, 0, 0.06) !important; }
+body.light-theme .panel-detail-mutasi h4, body.light-theme .history-item { background-color: rgba(255, 255, 255, 0.85) !important; border-color: rgba(0, 0, 0, 0.06) !important; }
+body.light-theme .history-info h5 { color: #2c2c2e !important; font-weight: 700 !important; }
+body.light-theme .history-info span, body.light-theme .history-info strong { color: #48484a !important; }
+body.light-theme .form-group label { color: #48484a !important; }
+
+/* FIX FORM INPUT, DROPDOWN VENDOR, DAN TOMBOL METODE E-MONEY/CASH DI LIGHT MODE */
+body.light-theme .form-group input, 
+body.light-theme .form-group select, 
+body.light-theme .dropdown-trigger, 
+body.light-theme #rincian_periode, 
+body.light-theme #edit-periode {
+    background-color: #ffffff !important; 
+    border-color: #c7c7cc !important; 
+    color: #000000 !important;
+}
+
+body.light-theme .form-group select option {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.light-theme .btn-action.secondary {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    color: #1c1c1e !important;
+}
+
+body.light-theme .btn-action.primary {
+    color: #ffffff !important;
+}
+
+body.light-theme .btn-secondary { background-color: rgba(0, 0, 0, 0.04) !important; border-color: rgba(0, 0, 0, 0.08) !important; color: #000000 !important; border-radius: 10px !important; }
+body.light-theme .btn-secondary:hover { background-color: rgba(0, 0, 0, 0.08) !important; }
+body.light-theme .alert-icon-wrapper { background-color: rgba(255, 149, 0, 0.1) !important; }
+body.light-theme .form-page-card:hover { border-color: rgba(0, 0, 0, 0.2) !important; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15) !important; }
+
+body.light-theme .btn-action.danger {
+    background-color: rgba(255, 69, 58, 0.1) !important;
+    border: 1px solid rgba(255, 69, 58, 0.25) !important;
+    color: #ff453a !important;
+}
+body.light-theme .btn-action.danger:hover {
+    background-color: #ff453a !important;
+    color: #ffffff !important;
+}
+
+body.light-theme #accordion-riwayat-container .portfolio-card h4,
+body.light-theme #accordion-riwayat-container .portfolio-card strong {
+    color: #1c1c1e !important;
+}
+
+body.light-theme .highlight-red {
+    color: #ff3b30 !important;
+}
+
+/* --- COMPONENT MODAL POPUP FIX STANDALONE LAYER --- */
+.modal {
+    position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important;
+    background-color: rgba(0, 0, 0, 0.6) !important; backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important;
+    display: flex !important; justify-content: center !important; align-items: center !important; z-index: 1000 !important;
+    opacity: 0 !important; pointer-events: none !important; transition: opacity 0.3s ease !important;
+}
+.modal.show { opacity: 1 !important; pointer-events: auto !important; }
+
+/* ===================================================================== */
+/* --- ADDON LIGHT MODE REVISI: SUB-TABS & DETAIL BREAKDOWN TABUNGAN --- */
+/* ===================================================================== */
+
+/* Memperbaiki tombol Detail Transaksi / Detail Tabungan saat Light Mode */
+body.light-theme .btn-sub-tab {
+    background: rgba(0, 0, 0, 0.04) !important;
+    color: #55555a !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-theme .btn-sub-tab:hover {
+    background: rgba(0, 0, 0, 0.08) !important;
+    color: #000000 !important;
+}
+
+body.light-theme .btn-sub-tab.active-sub {
+    background: #007aff !important;
+    color: #ffffff !important;
+    border-color: #007aff !important;
+}
+
+/* Memperbaiki Kotak Putih Lebar di menu Detail Tabungan (History) */
+body.light-theme [id^="block-goal-"] {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+body.light-theme [id^="block-goal-"] span {
+    color: #48484a !important; 
+}
+
+/* Supaya Teks E-Money (warna biru cerah di dark mode) jadi biru lebih tegas di background putih */
+body.light-theme [id^="block-goal-"] strong[style*="#64d2ff"] {
+    color: #007aff !important; 
+}
+
+/* Boks lencana kecil untuk vendor (DANA, OVO, dll) agar kontrasnya pas di mode terang */
+body.light-theme [id^="block-goal-"] span[style*="#64d2ff"] {
+    background-color: rgba(0, 122, 255, 0.1) !important;
+    color: #007aff !important;
+}
